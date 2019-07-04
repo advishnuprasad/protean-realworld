@@ -4,8 +4,7 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def test_domain():
-    from protean.domain import Domain
-    domain = Domain('Test')
+    from realworld.domain import domain
 
     # Construct relative path to config file
     current_path = os.path.abspath(os.path.dirname(__file__))

@@ -1,7 +1,8 @@
 from protean.globals import current_domain
 
-from realworld.application.command.user_registration_command import UserRegistrationCommand
-from realworld.application.representation.user_representation import UserRepresentation
+from realworld.application_services.command.user_registration_command import UserRegistrationCommand
+from realworld.application_services.representation.user_representation import UserRepresentation
+from realworld.infrastructure.user_repository import UserRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.user import User, UserRegistrationDTO
 from realworld.domain import domain
 
