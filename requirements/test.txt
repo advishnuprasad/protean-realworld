@@ -1,0 +1,3 @@
+-r dev.txt
+
+pytest==5.0.0
