@@ -24,3 +24,11 @@ class TestUserRegistrationService:
         persisted_user = user_dao.get(user_resource.id)
         assert persisted_user is not None
         assert hasattr(persisted_user, 'id')
+
+    def test_that_user_token_is_empty_immediately_after_registration_and_before_authentication(self, test_domain):
+        command = UserRegistrationCommand(
+            email='jake@jake.jake', username='jake', password='nopass'
+            )
+
+        user_resource = UserRegistrationService.register_user(command)
+        assert user_resource.token is None

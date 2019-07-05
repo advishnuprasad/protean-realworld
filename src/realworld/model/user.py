@@ -1,4 +1,6 @@
-from protean.core.field.basic import String
+from datetime import datetime, timedelta
+
+from protean.core.field.basic import DateTime, String
 
 from realworld.domain import domain
 
@@ -16,6 +18,8 @@ class User:
     username = String(required=True, max_length=50)
     password = String(required=True, max_length=255)
     bio = String(max_length=1024)
+    token = String(max_length=255)
+    token_valid_until = DateTime()
 
     @classmethod
     def register(self, user_dto: UserRegistrationDTO):
@@ -23,3 +27,10 @@ class User:
 
     def authenticate(self, password: str):
         return password == self.password
+
+    def refresh_token(self):
+        # FIXME Generate a JWT Token here
+        token = 'blahblah'
+
+        self.token = token
+        self.token_valid_until = datetime.now() + timedelta(days=1)

@@ -18,6 +18,10 @@ class UserAuthenticationService:
         valid = user.authenticate(command.password)
 
         if valid:
+            # Generate a new token valid for 24 hours
+            user.refresh_token()  # FIXME Should this method be a command method, and not return anything?
+            user_repo.add(user)
+
             # Convert the persisted user object into a resource
             #   to be passed onto the callee
             user_resource = UserRepresentation.from_user(user)
