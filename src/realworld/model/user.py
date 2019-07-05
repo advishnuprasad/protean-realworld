@@ -18,5 +18,8 @@ class User:
     bio = String(max_length=1024)
 
     @classmethod
-    def register_user(self, user_dto: UserRegistrationDTO):
+    def register(self, user_dto: UserRegistrationDTO):
         return User(email=user_dto.email, username=user_dto.username, password=user_dto.password)
+
+    def authenticate(self, password: str):
+        return password == self.password

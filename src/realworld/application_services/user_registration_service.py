@@ -11,16 +11,21 @@ from realworld.domain import domain
 class UserRegistrationService:
     @classmethod
     def register_user(cls, command: UserRegistrationCommand):
+        # Convert a Command Object into a DTO, to pass into the domain
         user_dto = UserRegistrationDTO(
             email=command.email,
             username=command.username,
             password=command.password
         )
-        user = User.register_user(user_dto)
 
+        # Call a factory method to construct a User object
+        user = User.register(user_dto)
+
+        # Persist the new User object
         user_repo = current_domain.repository_for(User)
         user_repo.add(user)
 
+        # Convert the persisted user object into a resource
+        #   to be passed onto the callee
         user_resource = UserRepresentation.from_user(user)
-
         return user_resource

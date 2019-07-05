@@ -19,7 +19,7 @@ class TestUser:
     def test_that_a_new_user_can_be_registered_successfully(self):
         user_dto = UserRegistrationDTO(email='jake@jake.jake', username='jake', password='nopass')
 
-        user = User.register_user(user_dto)
+        user = User.register(user_dto)
 
         assert user is not None
         assert isinstance(user, User)
@@ -29,3 +29,13 @@ class TestUser:
             UUID(str(user.id))
         except ValueError:
             pytest.fail("ID is not valid UUID")
+
+    def test_successful_password_authentication(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+
+        assert user.authenticate('nopass') is True
+
+    def test_unsuccessful_password_authentication(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+
+        assert user.authenticate('wrongpass') is False
