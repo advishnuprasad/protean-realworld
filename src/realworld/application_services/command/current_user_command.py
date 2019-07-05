@@ -5,4 +5,4 @@ from realworld.domain import domain
 
 @domain.data_transfer_object
 class CurrentUserCommand:
-    token = String(required=True, max_length=255)
+    token = String(required=True, max_length=1024)

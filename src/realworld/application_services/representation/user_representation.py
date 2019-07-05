@@ -12,7 +12,7 @@ class UserRepresentation:
     email = String(required=True, max_length=250)
     username = String(required=True, max_length=50)
     bio = String(max_length=1024)
-    token = String(max_length=255)
+    token = String(max_length=1024)
 
     @classmethod
     def from_user(cls, user: User):

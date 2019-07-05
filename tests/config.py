@@ -1,3 +1,5 @@
+import datetime
+
 from protean.utils import IdentityStrategy
 
 
@@ -33,3 +35,7 @@ BROKERS = {
         'PROVIDER': 'protean.impl.broker.memory_broker.MemoryBroker'
     }
 }
+
+# JWT Backend related configuration
+JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(minutes=60*24)
+JWT_ALGORITHM = 'HS256'
