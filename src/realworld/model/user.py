@@ -21,6 +21,7 @@ class User:
     bio = String(max_length=1024)
     token = String(max_length=1024)
     token_valid_until = DateTime()
+    image = String(max_length=1024)
 
     @classmethod
     def register(self, user_dto: UserRegistrationDTO):
@@ -34,3 +35,11 @@ class User:
 
         self.token = token
         self.token_valid_until = datetime.now() + timedelta(days=1)
+
+    def update(self, **kwargs):
+        valid_fields = [
+            field for field in kwargs
+            if field in ['email', 'username', 'password', 'image', 'bio']]
+
+        for field in valid_fields:
+            setattr(self, field, kwargs[field])

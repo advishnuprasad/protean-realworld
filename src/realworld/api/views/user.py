@@ -1,8 +1,11 @@
+# FIXME Handle User Not Found - 404 errors
+
 from flask import request, Blueprint, jsonify
 
 from realworld.application_services.command.current_user_command import CurrentUserCommand
 from realworld.application_services.command.user_authentication_command import UserAuthenticationCommand
 from realworld.application_services.command.user_registration_command import UserRegistrationCommand
+from realworld.application_services.command.user_update_command import UserUpdateCommand
 from realworld.application_services.user_authentication_service import UserAuthenticationService
 from realworld.application_services.user_registration_service import UserRegistrationService
 from realworld.application_services.user_service import UserService
@@ -60,3 +63,35 @@ def fetch_logged_in_user():
         return jsonify(user_resource.to_dict()), 200
     else:
         return '', 401
+
+
+@user_api.route('/api/user/', methods=['PUT'])
+def update_user():
+    data = request.json
+
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        auth_token = auth_header.split(" ")[1]
+    else:
+        auth_token = None
+
+    if not auth_token:
+        return '', 401
+
+    kwargs = {}
+    kwargs['token'] = auth_token
+    if 'email' in data['user'] and data['user']['email']:
+        kwargs['email'] = data['user']['email']
+    if 'username' in data['user'] and data['user']['username']:
+        kwargs['username'] = data['user']['username']
+    if 'password' in data['user'] and data['user']['password']:
+        kwargs['password'] = data['user']['password']
+    if 'image' in data['user'] and data['user']['image']:
+        kwargs['image'] = data['user']['image']
+    if 'bio' in data['user'] and data['user']['bio']:
+        kwargs['bio'] = data['user']['bio']
+    command = UserUpdateCommand(**kwargs)
+
+    user_resource = UserService.update_user(command)
+
+    return jsonify(user_resource.to_dict()), 204

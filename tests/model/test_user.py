@@ -39,3 +39,17 @@ class TestUser:
         user = User(email='jake@jake.jake', username='jake', password='nopass')
 
         assert user.authenticate('wrongpass') is False
+
+    def test_successfully_updating_a_users_attributes(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+        user.update(email='jane@jane.jane')
+
+        assert user.email == 'jane@jane.jane'
+        assert user.username == 'jake'
+
+    def test_that_invalid_fields_are_ignored(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+        user.update(email='jane@jane.jane', foo='bar')
+
+        assert user.email == 'jane@jane.jane'
+        assert hasattr(user, 'foo') is False
