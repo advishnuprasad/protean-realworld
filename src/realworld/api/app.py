@@ -3,10 +3,12 @@ import os
 from flask import Flask, render_template, url_for
 
 from realworld.api.views.user import user_api
+from realworld.api.views.profile import profile_api
 from realworld.domain import domain
 
 app = Flask(__name__)
 app.register_blueprint(user_api)
+app.register_blueprint(profile_api)
 
 # Configure domain
 current_path = os.path.abspath(os.path.dirname(__file__))

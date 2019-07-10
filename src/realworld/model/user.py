@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from protean.core.field.association import HasMany, Reference
 from protean.core.field.basic import DateTime, String
 
 from realworld.domain import domain
@@ -23,6 +24,9 @@ class User:
     token_valid_until = DateTime()
     image = String(max_length=1024)
 
+    follows = HasMany('realworld.model.user.Follower', via='user_id')
+    followers = HasMany('realworld.model.user.Follower', via='following_id')
+
     @classmethod
     def register(self, user_dto: UserRegistrationDTO):
         return User(email=user_dto.email, username=user_dto.username, password=user_dto.password)
@@ -43,3 +47,29 @@ class User:
 
         for field in valid_fields:
             setattr(self, field, kwargs[field])
+
+    ####################
+    # Follower methods #
+    ####################
+    def follow(self, user: 'User'):
+        if user not in [follow_object.following for follow_object in self.follows]:
+            self.follows.add(Follower(following=user, user=self))
+
+        return self
+
+    def unfollow(self, user: 'User'):
+        [follow_object] = [
+            follow_object for follow_object
+            in self.follows
+            if follow_object.following == user]
+
+        self.follows.remove(follow_object)
+
+        return self
+
+
+@domain.entity(aggregate_cls=User)
+class Follower:
+    following = Reference(User, required=True)
+    user = Reference(User, required=True)
+    followed_on = DateTime(required=True, default=datetime.now())

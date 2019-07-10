@@ -53,3 +53,36 @@ class TestUser:
 
         assert user.email == 'jane@jane.jane'
         assert hasattr(user, 'foo') is False
+
+
+class TestFollowFunctionality:
+    def test_that_user_can_follow_profile(self):
+        user1 = User(email='john.doe@gmail.com', username='johndoe', password='secret1')
+        user2 = User(email='jane.doe@gmail.com', username='janedoe', password='secret2')
+
+        updated_user1 = user1.follow(user2)
+        assert updated_user1 is not None
+        assert isinstance(updated_user1, User)
+
+        assert user2.id in [follow_obj.following.id for follow_obj in updated_user1.follows]
+
+    def test_that_user_cannot_follow_profile_more_than_once(self):
+        user1 = User(email='john.doe@gmail.com', username='johndoe', password='secret1')
+        user2 = User(email='jane.doe@gmail.com', username='janedoe', password='secret2')
+
+        user1.follow(user2)
+        assert len(user1.follows) == 1
+
+        # Following `user2` again should have no effect
+        user1 = user1.follow(user2)
+        assert len(user1.follows) == 1
+
+    def test_that_user_can_unfollow_profile(self):
+        user1 = User(email='john.doe@gmail.com', username='johndoe', password='secret1')
+        user2 = User(email='jane.doe@gmail.com', username='janedoe', password='secret2')
+
+        user1.follow(user2)
+        assert user2.id in [follow_obj.following.id for follow_obj in user1.follows]
+
+        user1.unfollow(user2)
+        assert user2.id not in [follow_obj.following.id for follow_obj in user1.follows]
