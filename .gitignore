@@ -106,3 +106,4 @@ venv.bak/
 # Custom
 .vscode
 .DS_Store
+*.code-workspace
