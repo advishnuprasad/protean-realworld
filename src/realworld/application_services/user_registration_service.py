@@ -7,7 +7,7 @@ from realworld.model.user import User, UserRegistrationDTO
 from realworld.domain import domain
 
 
-@domain.application_service
+@domain.application_service(aggregate_cls=User)
 class UserRegistrationService:
     @classmethod
     def register_user(cls, command: UserRegistrationCommand):
@@ -27,5 +27,5 @@ class UserRegistrationService:
 
         # Convert the persisted user object into a resource
         #   to be passed onto the callee
-        user_resource = UserRepresentation.from_user(user)
+        user_resource = UserRepresentation().dump(user)
         return user_resource

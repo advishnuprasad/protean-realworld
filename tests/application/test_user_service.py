@@ -24,7 +24,7 @@ class TestUserService:
 
         user_resource = UserService.fetch_user(command)
         assert user_resource is not None
-        assert user_resource.email == 'jake@jake.jake'
+        assert user_resource['email'] == 'jake@jake.jake'
 
     def test_unsuccessful_user_fetch(self, persisted_user):
         command = UserFetchCommand(username='foobar')
@@ -37,7 +37,7 @@ class TestUserService:
         command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
-        command = CurrentUserCommand(token=authenticated_user.token)
+        command = CurrentUserCommand(token=authenticated_user['token'])
         logged_in_user = UserService.fetch_logged_in_user(command)
         assert authenticated_user == logged_in_user
 
@@ -45,6 +45,6 @@ class TestUserService:
         command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
-        command = UserUpdateCommand(token=authenticated_user.token, bio='I am the man!')
+        command = UserUpdateCommand(token=authenticated_user['token'], bio='I am the man!')
         updated_user = UserService.update_user(command)
-        assert updated_user.bio == 'I am the man!'
+        assert updated_user['bio'] == 'I am the man!'

@@ -34,7 +34,7 @@ class ArticleService:
 
             # Convert the persisted article object into a resource
             #   to be passed onto the callee
-            article_resource = ArticleRepresentation.from_article(article)
+            article_resource = ArticleRepresentation().dump(article)
             return article_resource
 
         return None

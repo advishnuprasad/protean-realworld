@@ -24,7 +24,7 @@ class UserAuthenticationService:
 
             # Convert the persisted user object into a resource
             #   to be passed onto the callee
-            user_resource = UserRepresentation.from_user(user)
+            user_resource = UserRepresentation().dump(user)
             return user_resource
 
         return None

@@ -21,7 +21,7 @@ class TestUserRegistrationService:
 
         # FIXME Should check for this via Repository itself
         user_dao = test_domain.get_dao(User)
-        persisted_user = user_dao.get(user_resource.id)
+        persisted_user = user_dao.get(user_resource['id'])
         assert persisted_user is not None
         assert hasattr(persisted_user, 'id')
 
@@ -31,4 +31,4 @@ class TestUserRegistrationService:
             )
 
         user_resource = UserRegistrationService.register_user(command)
-        assert user_resource.token is None
+        assert user_resource['token'] is None

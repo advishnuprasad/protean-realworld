@@ -23,12 +23,12 @@ class TestProfileService:
         auth_command = UserAuthenticationCommand(email=user1.email, password=user1.password)
         authenticated_user = UserAuthenticationService.authenticate_user(auth_command)
 
-        profile_command = FetchProfileCommand(token=authenticated_user.token, username=user2.username)
+        profile_command = FetchProfileCommand(token=authenticated_user['token'], username=user2.username)
         profile_resource = ProfileService.fetch_profile(profile_command)
 
         assert profile_resource is not None
-        assert profile_resource.username == user2.username
-        assert profile_resource.following is False
+        assert profile_resource['username'] == user2.username
+        assert profile_resource['following'] is False
 
     def test_successful_profile_follow(self, persisted_users):
         user1 = persisted_users[0]
@@ -37,12 +37,12 @@ class TestProfileService:
         auth_command = UserAuthenticationCommand(email=user1.email, password=user1.password)
         authenticated_user = UserAuthenticationService.authenticate_user(auth_command)
 
-        profile_command = FollowProfileCommand(token=authenticated_user.token, username=user2.username)
+        profile_command = FollowProfileCommand(token=authenticated_user['token'], username=user2.username)
         profile_resource = ProfileService.follow_profile(profile_command)
 
         assert profile_resource is not None
-        assert profile_resource.username == user2.username
-        assert profile_resource.following is True
+        assert profile_resource['username'] == user2.username
+        assert profile_resource['following'] is True
 
     def test_successful_profile_unfollow(self, persisted_users):
         user1 = persisted_users[0]
@@ -51,15 +51,15 @@ class TestProfileService:
         auth_command = UserAuthenticationCommand(email=user1.email, password=user1.password)
         authenticated_user = UserAuthenticationService.authenticate_user(auth_command)
 
-        profile_command = FollowProfileCommand(token=authenticated_user.token, username=user2.username)
+        profile_command = FollowProfileCommand(token=authenticated_user['token'], username=user2.username)
         profile_resource = ProfileService.follow_profile(profile_command)
 
-        assert profile_resource.username == user2.username
-        assert profile_resource.following is True
+        assert profile_resource['username'] == user2.username
+        assert profile_resource['following'] is True
 
         # Now unfollow profile
-        profile_command = FollowProfileCommand(token=authenticated_user.token, username=user2.username)
+        profile_command = FollowProfileCommand(token=authenticated_user['token'], username=user2.username)
         profile_resource = ProfileService.unfollow_profile(profile_command)
 
-        assert profile_resource.username == user2.username
-        assert profile_resource.following is False
+        assert profile_resource['username'] == user2.username
+        assert profile_resource['following'] is False

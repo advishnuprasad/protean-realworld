@@ -4,7 +4,7 @@ from realworld.application_services.command.fetch_profile_command import FetchPr
 from realworld.application_services.command.follow_profile_command import FollowProfileCommand
 from realworld.application_services.representation.profile_representation import ProfileRepresentation
 from realworld.domain import domain
-from realworld.model.user import User
+from realworld.model.user import User, ProfileDTO
 
 
 @domain.application_service
@@ -17,7 +17,8 @@ class ProfileService:
         if logged_in_user is not None:
             profile_user = user_repo.get_by_username(command.username)
             if profile_user is not None:
-                profile_resource = ProfileRepresentation.for_user(logged_in_user, profile_user)
+                profile_rep = ProfileDTO.for_user(logged_in_user, profile_user)
+                profile_resource = ProfileRepresentation().dump(profile_rep)
                 return profile_resource
 
         return None

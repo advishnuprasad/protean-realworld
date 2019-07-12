@@ -1,11 +1,11 @@
-from protean.core.field.basic import CustomObject, Identifier, List, String, Text
+from protean.core.field.basic import Identifier, List, Nested, String, Text
 
 from realworld.domain import domain
+from realworld.application_services.representation.profile_representation import ProfileRepresentation
 from realworld.model.article import Article
-from realworld.model.user import User
 
 
-@domain.data_transfer_object
+@domain.serializer(aggregate_cls=Article)
 class ArticleRepresentation:
     id = Identifier()
     title = String(required=True, max_length=250)
@@ -13,15 +13,4 @@ class ArticleRepresentation:
     body = Text(required=True)
     tag_list = List()
 
-    author = CustomObject(User, required=True)
-
-    @classmethod
-    def from_article(cls, article: Article):
-        return ArticleRepresentation(
-            id=article.id,
-            title=article.title,
-            description=article.description,
-            body=article.body,
-            tag_list=article.tag_list,
-            author=article.author
-        )
+    author = Nested(ProfileRepresentation, required=True)

@@ -19,7 +19,7 @@ class UserService:
         if user is not None:
             # Convert the persisted user object into a resource
             #   to be passed onto the callee
-            user_resource = UserRepresentation.from_user(user)
+            user_resource = UserRepresentation().dump(user)
             return user_resource
 
         return None
@@ -32,7 +32,7 @@ class UserService:
         if user is not None:
             # Convert the persisted user object into a resource
             #   to be passed onto the callee
-            user_resource = UserRepresentation.from_user(user)
+            user_resource = UserRepresentation().dump(user)
             return user_resource
 
         return None
@@ -49,7 +49,7 @@ class UserService:
             user.update(**kwargs)
             user_repo.add(user)
 
-            user_resource = UserRepresentation.from_user(user)
+            user_resource = UserRepresentation().dump(user)
             return user_resource
 
         return None

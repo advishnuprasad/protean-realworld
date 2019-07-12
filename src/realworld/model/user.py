@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from protean.core.field.association import HasMany, Reference
-from protean.core.field.basic import DateTime, String
+from protean.core.field.basic import Boolean, DateTime, String
 
 from realworld.domain import domain
 from realworld.lib.jwt import generate_token
@@ -73,3 +73,22 @@ class Follower:
     following = Reference(User, required=True)
     user = Reference(User, required=True)
     followed_on = DateTime(required=True, default=datetime.now())
+
+
+@domain.data_transfer_object
+class ProfileDTO:
+    username = String(required=True, max_length=50)
+    bio = String(max_length=1024)
+    image = String(max_length=1024)
+    following = Boolean(default=False)
+
+    @classmethod
+    def for_user(cls, user: User, profile_user: User):
+        following = profile_user in [item.following for item in user.follows]
+
+        return ProfileDTO(
+            username=profile_user.username,
+            bio=profile_user.bio,
+            image=profile_user.image,
+            following=following
+        )

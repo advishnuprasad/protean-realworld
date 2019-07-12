@@ -22,7 +22,7 @@ class TestArticleService:
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         command = CreateArticleCommand(
-            token=authenticated_user.token,
+            token=authenticated_user['token'],
             title="How to train your dragon",
             description="Ever wonder how?",
             body="You have to believe",
@@ -30,7 +30,6 @@ class TestArticleService:
             )
 
         article_resource = ArticleService.create_article(command)
-        json_dict = article_resource.to_dict()
         assert article_resource is not None
 
     def test_that_article_is_persisted_in_the_article_service(self, persisted_user, test_domain):
@@ -39,7 +38,7 @@ class TestArticleService:
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         command = CreateArticleCommand(
-            token=authenticated_user.token,
+            token=authenticated_user['token'],
             title="How to train your dragon",
             description="Ever wonder how?",
             body="You have to believe",
@@ -50,6 +49,6 @@ class TestArticleService:
 
         # FIXME Should check for this via Repository itself
         article_dao = test_domain.get_dao(Article)
-        persisted_article = article_dao.get(article_resource.id)
+        persisted_article = article_dao.get(article_resource['id'])
         assert persisted_article is not None
         assert hasattr(persisted_article, 'id')
