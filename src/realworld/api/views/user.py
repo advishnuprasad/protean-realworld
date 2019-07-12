@@ -25,7 +25,7 @@ def register_user():
 
     user_resource = UserRegistrationService.register_user(command)
 
-    return jsonify(user_resource.to_dict()), 201
+    return jsonify(user_resource), 201
 
 
 @user_api.route('/api/users/login', methods=['POST'])
@@ -40,7 +40,7 @@ def authenticate_user():
     user_resource = UserAuthenticationService.authenticate_user(command)
 
     if user_resource:
-        return jsonify(user_resource.to_dict()), 200
+        return jsonify(user_resource), 200
     else:
         return '', 401
 
@@ -60,7 +60,7 @@ def fetch_logged_in_user():
 
     user_resource = UserService.fetch_logged_in_user(command)
     if user_resource:
-        return jsonify(user_resource.to_dict()), 200
+        return jsonify(user_resource), 200
     else:
         return '', 401
 
@@ -94,4 +94,4 @@ def update_user():
 
     user_resource = UserService.update_user(command)
 
-    return jsonify(user_resource.to_dict()), 204
+    return jsonify(user_resource), 204

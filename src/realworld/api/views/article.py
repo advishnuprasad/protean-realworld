@@ -1,8 +1,10 @@
 # FIXME Handle User Not Found - 404 errors
+# FIXME Handle resource not returned errors - 404 errors
 
 from flask import request, Blueprint, jsonify
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
+from realworld.application_services.command.get_article_command import GetArticleCommand
 from realworld.application_services.article_service import ArticleService
 
 article_api = Blueprint('article_api', __name__)
@@ -31,4 +33,15 @@ def create_article():
 
     article_resource = ArticleService.create_article(command)
 
-    return jsonify(article_resource.to_dict()), 201
+    return jsonify(article_resource), 201
+
+
+@article_api.route('/api/articles/<slug>', methods=['GET'])
+def fetch_profile(slug):
+    if not slug:
+        return '', 400
+
+    command = GetArticleCommand(slug=slug)
+    article_resource = ArticleService.get_article(command)
+
+    return jsonify(article_resource), 200

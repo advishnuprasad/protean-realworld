@@ -4,6 +4,7 @@ from protean.core.field.basic import Boolean, CustomObject, DateTime, Integer, L
 from protean.core.field.association import Reference
 
 from realworld.domain import domain
+from realworld.lib.utils import slugify
 from realworld.model.user import User
 
 
@@ -35,6 +36,7 @@ class Article:
     def create(self, article_dto: CreateArticleDTO):
         return Article(
             title=article_dto.title,
+            slug=slugify(article_dto.title),
             description=article_dto.description,
             body=article_dto.body,
             tag_list=article_dto.tag_list,

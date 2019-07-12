@@ -1,6 +1,7 @@
 from protean.globals import current_domain
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
+from realworld.application_services.command.get_article_command import GetArticleCommand
 from realworld.application_services.representation.article_representation import ArticleRepresentation
 from realworld.infrastructure.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.article import Article, CreateArticleDTO
@@ -34,6 +35,17 @@ class ArticleService:
 
             # Convert the persisted article object into a resource
             #   to be passed onto the callee
+            article_resource = ArticleRepresentation().dump(article)
+            return article_resource
+
+        return None
+
+    @classmethod
+    def get_article(cls, command: GetArticleCommand):
+        article_repo = current_domain.repository_for(Article)
+        article = article_repo.get_by_slug(command.slug)
+
+        if article is not None:
             article_resource = ArticleRepresentation().dump(article)
             return article_resource
 

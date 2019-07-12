@@ -43,3 +43,19 @@ class TestUser:
             UUID(str(article.id))
         except ValueError:
             pytest.fail("ID is not valid UUID")
+
+    def test_that_a_slug_is_created_from_the_article_title(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+
+        article_dto = CreateArticleDTO(
+            title="How to train your dragon",
+            description="Ever wonder how?",
+            body="You have to believe",
+            tag_list=["reactjs", "angularjs", "dragons"],
+            author=user
+        )
+
+        article = Article.create(article_dto)
+
+        assert article.slug is not None
+        assert article.slug == "how-to-train-your-dragon"

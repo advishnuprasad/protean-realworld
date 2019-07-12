@@ -25,7 +25,7 @@ def fetch_profile(username):
 
     profile_resource = ProfileService.fetch_profile(command)
 
-    return jsonify(profile_resource.to_dict()), 200
+    return jsonify(profile_resource), 200
 
 
 @profile_api.route('/api/profiles/<username>/follow', methods=['POST'])
@@ -46,7 +46,7 @@ def follow_profile(username):
 
     profile_resource = ProfileService.follow_profile(command)
 
-    return jsonify(profile_resource.to_dict()), 200
+    return jsonify(profile_resource), 200
 
 
 @profile_api.route('/api/profiles/<username>/follow', methods=['DELETE'])
@@ -67,4 +67,4 @@ def unfollow_profile(username):
 
     profile_resource = ProfileService.unfollow_profile(command)
 
-    return jsonify(profile_resource.to_dict()), 200
+    return jsonify(profile_resource), 200
