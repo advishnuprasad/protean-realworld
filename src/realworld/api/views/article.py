@@ -4,6 +4,7 @@
 from flask import request, Blueprint, jsonify
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
+from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.article_service import ArticleService
@@ -49,7 +50,7 @@ def fetch_profile(slug):
 
 
 @article_api.route('/api/articles/<slug>', methods=['PUT'])
-def update_user(slug):
+def update_article(slug):
     if not slug:
         return '', 400
 
@@ -78,3 +79,25 @@ def update_user(slug):
     article_resource = ArticleService.update_article(command)
 
     return jsonify(article_resource), 204
+
+
+@article_api.route('/api/articles/<slug>', methods=['DELETE'])
+def delete_article(slug):
+    if not slug:
+        return '', 400
+
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        auth_token = auth_header.split(" ")[1]
+    else:
+        auth_token = None
+
+    if not auth_token:
+        return '', 401
+
+    kwargs = {'token': auth_token, 'slug': slug}
+    command = DeleteArticleCommand(**kwargs)
+
+    ArticleService.delete_article(command)
+
+    return '', 204

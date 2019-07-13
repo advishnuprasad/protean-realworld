@@ -1,6 +1,7 @@
 import pytest
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
+from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.command.user_authentication_command import UserAuthenticationCommand
@@ -86,3 +87,16 @@ class TestArticleService:
             title='How to train your dragon - Part 2 - At Worlds End')
         updated_article = ArticleService.update_article(command)
         assert updated_article['slug'] == 'how-to-train-your-dragon-part-2-at-worlds-end'
+
+    def test_deleting_an_article(self, persisted_article):
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        assert ArticleService.get_article(GetArticleCommand(slug=persisted_article.slug)) is not None
+
+        command = DeleteArticleCommand(
+            token=authenticated_user['token'],
+            slug=persisted_article.slug)
+        ArticleService.delete_article(command)
+
+        assert ArticleService.get_article(GetArticleCommand(slug=persisted_article.slug)) is None
