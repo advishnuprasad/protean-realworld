@@ -2,6 +2,7 @@ import pytest
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
+from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.command.user_authentication_command import UserAuthenticationCommand
 from realworld.application_services.article_service import ArticleService
 from realworld.application_services.user_authentication_service import UserAuthenticationService
@@ -74,3 +75,14 @@ class TestArticleService:
 
         assert article_resource is not None
         assert article_resource['slug'] == persisted_article.slug
+
+    def test_updating_an_articles_title(self, persisted_article):
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        command = UpdateArticleCommand(
+            token=authenticated_user['token'],
+            slug=persisted_article.slug,
+            title='How to train your dragon - Part 2 - At Worlds End')
+        updated_article = ArticleService.update_article(command)
+        assert updated_article['slug'] == 'how-to-train-your-dragon-part-2-at-worlds-end'

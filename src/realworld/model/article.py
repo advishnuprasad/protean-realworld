@@ -42,3 +42,14 @@ class Article:
             tag_list=article_dto.tag_list,
             author=article_dto.author
             )
+
+    def update(self, **kwargs):
+        valid_fields = [
+            field for field in kwargs
+            if field in ['title', 'description', 'body']]
+
+        for field in valid_fields:
+            setattr(self, field, kwargs[field])
+
+        if 'title' in valid_fields:
+            setattr(self, 'slug', slugify(self.title))

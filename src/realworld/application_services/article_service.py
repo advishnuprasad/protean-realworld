@@ -2,6 +2,7 @@ from protean.globals import current_domain
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
+from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.representation.article_representation import ArticleRepresentation
 from realworld.infrastructure.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.article import Article, CreateArticleDTO
@@ -48,5 +49,26 @@ class ArticleService:
         if article is not None:
             article_resource = ArticleRepresentation().dump(article)
             return article_resource
+
+        return None
+
+    @classmethod
+    def update_article(cls, command: UpdateArticleCommand):
+        user_repo = current_domain.repository_for(User)
+        user = user_repo.get_by_token(command.token)
+
+        if user is not None:
+            article_repo = current_domain.repository_for(Article)
+            article = article_repo.get_by_slug(command.slug)
+
+            if article is not None:
+                kwargs = command.to_dict()
+                kwargs.pop('token', None)
+                kwargs = {k: v for k, v in kwargs.items() if v is not None}
+                article.update(**kwargs)
+                article_repo.add(article)
+
+                article_resource = ArticleRepresentation().dump(article)
+                return article_resource
 
         return None
