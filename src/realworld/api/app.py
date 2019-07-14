@@ -1,16 +1,18 @@
 import os
 
-from flask import Flask, render_template, url_for
+from flask import Flask
 
 from realworld.api.views.user import user_api
 from realworld.api.views.profile import profile_api
 from realworld.api.views.article import article_api
+from realworld.api.views.comment import comment_api
 from realworld.domain import domain
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 app.register_blueprint(user_api)
 app.register_blueprint(profile_api)
 app.register_blueprint(article_api)
+app.register_blueprint(comment_api)
 
 # Configure domain
 current_path = os.path.abspath(os.path.dirname(__file__))
@@ -21,21 +23,3 @@ domain.config.from_pyfile(config_path)
 # This should be done within Flask App
 context = domain.domain_context()
 context.push()
-
-
-def has_no_empty_params(rule):
-    defaults = rule.defaults if rule.defaults is not None else ()
-    arguments = rule.arguments if rule.arguments is not None else ()
-    return len(defaults) >= len(arguments)
-
-
-@app.route('/')
-def routes():
-    links = []
-    for rule in app.url_map.iter_rules():
-        # Filter out rules we can't navigate to in a browser
-        # and rules that require parameters
-        if "GET" in rule.methods and has_no_empty_params(rule):
-            url = url_for(rule.endpoint, **(rule.defaults or {}))
-            links.append((url, rule.endpoint))
-    return render_template("home.html", links=links)

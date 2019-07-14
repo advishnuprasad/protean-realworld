@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from protean.core.field.basic import Boolean, CustomObject, DateTime, Integer, List, String, Text
-from protean.core.field.association import Reference
+from protean.core.field.association import HasMany, Reference
 
 from realworld.domain import domain
 from realworld.lib.utils import slugify
@@ -32,6 +32,8 @@ class Article:
 
     author = Reference(User, required=True)
 
+    comments = HasMany('realworld.model.article.Comment')
+
     @classmethod
     def create(self, article_dto: CreateArticleDTO):
         return Article(
@@ -53,3 +55,40 @@ class Article:
 
         if 'title' in valid_fields:
             setattr(self, 'slug', slugify(self.title))
+
+    ###################
+    # Comment methods #
+    ###################
+    def add_comment(self, body: String, logged_in_user: User):
+        new_comment = Comment(body=body, article=self, author=logged_in_user)
+        self.comments.add(new_comment)
+
+        return self, new_comment
+
+    def delete_comment(self, comment_identifier):
+        [old_comment] = [
+            comment for comment
+            in self.comments
+            if comment.id == comment_identifier]
+
+        self.comments.remove(old_comment)
+
+        return self, old_comment
+
+    def get_comment_by_identifier(self, comment_identifier):
+        [comment] = [
+            comment for comment
+            in self.comments
+            if comment.id == comment_identifier]
+
+        return comment
+
+
+@domain.entity(aggregate_cls=Article)
+class Comment:
+    body = Text(required=True)
+    created_at = DateTime(default=datetime.now())
+    updated_at = DateTime(default=datetime.now())
+
+    article = Reference(Article, required=True)
+    author = Reference(User, required=True)

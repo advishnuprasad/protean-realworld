@@ -8,7 +8,7 @@ from realworld.model.article import Article, CreateArticleDTO
 from realworld.model.user import User
 
 
-class TestUser:
+class TestArticle:
     def test_that_an_article_can_be_initialized_successfully(self):
         article = Article(
             title="How to train your dragon",
@@ -106,3 +106,43 @@ class TestUser:
         article.update(title='How to train your dragon - Part 2 - At Worlds End')
 
         assert article.slug == 'how-to-train-your-dragon-part-2-at-worlds-end'
+
+
+class TestComment:
+    @pytest.fixture
+    def article(self):
+        user = User(email='jake@jake.jake', username='jake', password='nopass')
+
+        return Article(
+            title="How to train your dragon",
+            description="Ever wonder how?",
+            body="You have to believe",
+            tagList=["reactjs", "angularjs", "dragons"],
+            author=user
+        )
+
+    def test_that_a_comment_can_be_added_to_an_article(self, article):
+        updated_article, comment = article.add_comment('It takes a Jacobian', article.author)
+        assert comment in updated_article.comments
+
+    def test_that_a_comment_can_be_removed_from_an_article(self, article):
+        updated_article, comment = article.add_comment('It takes a Jacobian', article.author)
+        assert comment in updated_article.comments
+        assert len(updated_article.comments) == 1
+
+        article_after_removal, _ = article.delete_comment(comment.id)
+        assert comment not in article_after_removal.comments
+        assert len(article_after_removal.comments) == 0
+
+    def test_that_a_comment_can_be_removed_from_amongst_many_comments(self, article):
+        updated_article, comment1 = article.add_comment('It takes a Jacobian', article.author)
+        updated_article, comment2 = article.add_comment('I work at statefarm', article.author)
+
+        assert comment1 in updated_article.comments
+        assert comment2 in updated_article.comments
+        assert len(updated_article.comments) == 2
+
+        article_after_removal, _ = article.delete_comment(comment1.id)
+        assert comment1 not in article_after_removal.comments
+        assert len(article_after_removal.comments) == 1
+        assert comment2 in article_after_removal.comments
