@@ -1,5 +1,7 @@
 import pytest
 
+from pytest_factoryboy import register
+
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
@@ -10,12 +12,16 @@ from realworld.application_services.user_authentication_service import UserAuthe
 from realworld.model.article import Article
 from realworld.model.user import User
 
+from factories import UserFactory
+
+register(UserFactory)
+
 
 class TestArticleService:
     @pytest.fixture
-    def persisted_user(self, test_domain):
+    def persisted_user(self, test_domain, user):
         user_dao = test_domain.get_dao(User)
-        user = user_dao.create(email='jake@jake.jake', username='jake', password='nopass')
+        user = user_dao.save(user)
 
         return user
 
@@ -35,7 +41,7 @@ class TestArticleService:
 
     def test_creating_an_article_via_article_service(self, persisted_user, test_domain):
         # Authenticate user to generate valid token
-        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        command = UserAuthenticationCommand(email=persisted_user.email, password=persisted_user.password)
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         command = CreateArticleCommand(
@@ -51,7 +57,7 @@ class TestArticleService:
 
     def test_that_article_is_persisted_in_the_article_service(self, persisted_user, test_domain):
         # Authenticate user to generate valid token
-        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        command = UserAuthenticationCommand(email=persisted_user.email, password=persisted_user.password)
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         command = CreateArticleCommand(
@@ -78,7 +84,9 @@ class TestArticleService:
         assert article_resource['slug'] == persisted_article.slug
 
     def test_updating_an_articles_title(self, persisted_article):
-        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        command = UserAuthenticationCommand(
+            email=persisted_article.author.email,
+            password=persisted_article.author.password)
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         command = UpdateArticleCommand(
@@ -89,7 +97,9 @@ class TestArticleService:
         assert updated_article['slug'] == 'how-to-train-your-dragon-part-2-at-worlds-end'
 
     def test_deleting_an_article(self, persisted_article):
-        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        command = UserAuthenticationCommand(
+            email=persisted_article.author.email,
+            password=persisted_article.author.password)
         authenticated_user = UserAuthenticationService.authenticate_user(command)
 
         assert ArticleService.get_article(GetArticleCommand(slug=persisted_article.slug)) is not None
