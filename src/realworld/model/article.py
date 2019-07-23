@@ -27,8 +27,6 @@ class Article:
     tag_list = List()
     created_at = DateTime(default=datetime.now())
     updated_at = DateTime(default=datetime.now())
-    favorited = Boolean(default=False)
-    favorites_count = Integer()
 
     author = Reference(User, required=True)
 
@@ -82,6 +80,35 @@ class Article:
             if comment.id == comment_identifier]
 
         return comment
+
+
+@domain.data_transfer_object(aggregate_cls=Article)
+class ArticleDTO:
+    slug = String(max_length=250)
+    title = String(required=True, max_length=250)
+    description = Text(required=True)
+    body = Text(required=True)
+    tag_list = List()
+    created_at = DateTime(default=datetime.now())
+    updated_at = DateTime(default=datetime.now())
+    favorited = Boolean(default=False)
+    favorites_count = Integer()
+
+    @classmethod
+    def for_article(cls, article: Article, user: User):
+        favorited = article in [favorite.article for favorite in user.favorites]
+
+        return ArticleDTO(
+            slug=article.slug,
+            title=article.title,
+            description=article.description,
+            body=article.body,
+            tag_list=article.tag_list,
+            created_at=article.created_at,
+            updated_at=article.updated_at,
+            author=article.author,
+            favorited=favorited
+        )
 
 
 @domain.entity(aggregate_cls=Article)

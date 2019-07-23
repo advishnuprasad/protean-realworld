@@ -27,6 +27,8 @@ class User:
     follows = HasMany('realworld.model.user.Follower', via='user_id')
     followers = HasMany('realworld.model.user.Follower', via='following_id')
 
+    favorites = HasMany('realworld.model.user.Favorite', via='user_id')
+
     @classmethod
     def register(self, user_dto: UserRegistrationDTO):
         return User(email=user_dto.email, username=user_dto.username, password=user_dto.password)
@@ -67,12 +69,42 @@ class User:
 
         return self
 
+    ######################
+    # Favoriting methods #
+    ######################
+    def favorite(self, article):
+        if article not in [favorite.article for favorite in self.favorites]:
+            self.favorites.add(Favorite(article=article, user=self))
+
+        return self
+
+    def unfavorite(self, article):
+        try:
+            [favorited_article] = [
+                favorite for favorite
+                in self.favorites
+                if favorite.article == article]
+        except ValueError:
+            favorited_article = None
+
+        if favorited_article:
+            self.favorites.remove(favorited_article)
+
+        return self
+
 
 @domain.entity(aggregate_cls=User)
 class Follower:
     following = Reference(User, required=True)
     user = Reference(User, required=True)
     followed_on = DateTime(required=True, default=datetime.now())
+
+
+@domain.entity(aggregate_cls=User)
+class Favorite:
+    article = Reference('realworld.model.article.Article', required=True)
+    user = Reference(User, required=True)
+    favorited_on = DateTime(required=True, default=datetime.now())
 
 
 @domain.data_transfer_object
