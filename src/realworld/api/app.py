@@ -1,3 +1,4 @@
+import json
 import os
 
 from flask import Flask
@@ -8,6 +9,8 @@ from realworld.api.views.article import article_api
 from realworld.api.views.comment import comment_api
 from realworld.api.views.favorite import favorite_api
 from realworld.domain import domain
+
+from realworld.api.util import load_data
 
 app = Flask(__name__, static_folder=None)
 app.register_blueprint(user_api)
@@ -25,3 +28,10 @@ domain.config.from_pyfile(config_path)
 # This should be done within Flask App
 context = domain.domain_context()
 context.push()
+
+
+@app.before_first_request
+def before_first_request():
+    data_file = os.environ.get('DATA')
+    if data_file:
+        load_data(data_file)

@@ -39,7 +39,7 @@ def create_article():
 
 
 @article_api.route('/api/articles/<slug>', methods=['GET'])
-def fetch_profile(slug):
+def fetch_article(slug):
     if not slug:
         return '', 400
 
