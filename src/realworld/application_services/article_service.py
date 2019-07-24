@@ -3,6 +3,7 @@ from protean.globals import current_domain
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
+from realworld.application_services.command.list_articles_command import ListArticlesCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.representation.article_representation import ArticleRepresentation
 from realworld.infrastructure.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
@@ -49,6 +50,26 @@ class ArticleService:
 
         if article is not None:
             article_resource = ArticleRepresentation().dump(article)
+            return article_resource
+
+        return None
+
+    @classmethod
+    def list_articles(cls, command: ListArticlesCommand):
+        article_repo = current_domain.repository_for(Article)
+
+        articles = None
+        if command.tag is not None:
+            articles = article_repo.get_by_tag(command.tag, command.limit, command.offset)
+        elif command.author is not None:
+            articles = article_repo.get_by_author(command.author, command.limit, command.offset)
+        elif command.favorited is not None:
+            articles = article_repo.get_by_author(command.favorited, command.limit, command.offset)
+        else:
+            articles = article_repo.list_articles(command.limit, command.offset)
+
+        if articles is not None:
+            article_resource = ArticleRepresentation().dump(articles, many=True)
             return article_resource
 
         return None

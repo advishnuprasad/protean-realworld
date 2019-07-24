@@ -6,6 +6,7 @@ from flask import request, Blueprint, jsonify
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
+from realworld.application_services.command.list_articles_command import ListArticlesCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.article_service import ArticleService
 
@@ -47,6 +48,28 @@ def fetch_article(slug):
     article_resource = ArticleService.get_article(command)
 
     return jsonify(article_resource), 200
+
+
+@article_api.route('/api/articles', methods=['GET'])
+def list_articles():
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        auth_token = auth_header.split(" ")[1]
+    else:
+        auth_token = None
+
+    tag = request.args.get('tag')
+    author = request.args.get('author')
+    favorited = request.args.get('favorited')
+    limit = request.args.get('limit')
+    offset = request.args.get('offset')
+
+    command = ListArticlesCommand(
+        token=auth_token, tag=tag, author=author,
+        favorited=favorited, limit=limit, offset=offset)
+    article_resources = ArticleService.list_articles(command)
+
+    return jsonify(article_resources), 200
 
 
 @article_api.route('/api/articles/<slug>', methods=['PUT'])
