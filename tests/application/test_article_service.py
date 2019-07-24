@@ -3,12 +3,14 @@ import random
 
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.delete_article_command import DeleteArticleCommand
+from realworld.application_services.command.favorite_article_command import FavoriteArticleCommand
 from realworld.application_services.command.get_article_command import GetArticleCommand
 from realworld.application_services.command.list_articles_command import ListArticlesCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.command.user_authentication_command import UserAuthenticationCommand
 from realworld.application_services.article_service import ArticleService
 from realworld.application_services.user_authentication_service import UserAuthenticationService
+from realworld.application_services.user_favoriting_service import UserFavoritingService
 from realworld.model.article import Article
 from realworld.model.user import User
 
@@ -165,3 +167,37 @@ class TestArticleService:
         article_resources = ArticleService.list_articles(list_command)
         if len(article_resources) > 1:
             assert 'tag24' in article_resources[0]['tag_list']
+
+    def test_listing_articles_with_author_filter(self, persisted_user, user1, user2, persisted_articles):
+        # Authenticate user to generate valid token
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'], author=user1.username)
+        article_resources = ArticleService.list_articles(list_command)
+        if len(article_resources) > 1:
+            assert article_resources[0]['author']['username'] == user1.username
+        no_of_user1_articles = len(article_resources)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'], author=user2.username)
+        article_resources = ArticleService.list_articles(list_command)
+        if len(article_resources) > 1:
+            assert article_resources[0]['author']['username'] == user2.username
+        no_of_user2_articles = len(article_resources)
+
+        assert no_of_user1_articles + no_of_user2_articles == 30
+
+    def test_listing_articles_with_favorited_filter(self, persisted_user, user1, user2, persisted_articles):
+        command = UserAuthenticationCommand(email=user1.email, password=user1.password)
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        favorite_command = FavoriteArticleCommand(token=authenticated_user['token'], slug=persisted_articles[5].slug)
+        UserFavoritingService.favorite_article(favorite_command)
+
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'], favorited=user1.username)
+        article_resources = ArticleService.list_articles(list_command)
+        assert len(article_resources) == 1
+        assert article_resources[0]['slug'] == persisted_articles[5].slug

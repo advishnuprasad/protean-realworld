@@ -64,7 +64,7 @@ class ArticleService:
         elif command.author is not None:
             articles = article_repo.get_by_author(command.author, command.limit, command.offset)
         elif command.favorited is not None:
-            articles = article_repo.get_by_author(command.favorited, command.limit, command.offset)
+            articles = article_repo.get_by_favorited(command.favorited, command.limit, command.offset)
         else:
             articles = article_repo.list_articles(command.limit, command.offset)
 

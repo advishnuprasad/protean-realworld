@@ -28,6 +28,7 @@ class UserRepository:
         # FIXME Should return None if token has expired
         user_dao = current_domain.get_dao(User)
         try:
-            return user_dao.find_by(token=token)
+            user = user_dao.find_by(token=token)
+            return user
         except ObjectNotFoundError:
             return None

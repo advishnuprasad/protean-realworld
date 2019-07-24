@@ -23,8 +23,10 @@ class UserFavoritingService:
 
             if article is not None:
                 user.favorite(article)
+                user_repo.add(user)
 
-                article_dto = ArticleDTO.for_article(article, user)
+                updated_user = user_repo.get(user.id)  # FIXME Do we need to refresh the underlying object always?
+                article_dto = ArticleDTO.for_article(article, updated_user)
                 article_resource = ArticleRepresentation().dump(article_dto)
                 return article_resource
 
@@ -41,8 +43,10 @@ class UserFavoritingService:
 
             if article is not None:
                 user.unfavorite(article)
+                user_repo.add(user)
 
-                article_dto = ArticleDTO.for_article(article, user)
+                updated_user = user_repo.get(user.id)  # FIXME Do we need to refresh the underlying object always?
+                article_dto = ArticleDTO.for_article(article, updated_user)
                 article_resource = ArticleRepresentation().dump(article_dto)
                 return article_resource
 
