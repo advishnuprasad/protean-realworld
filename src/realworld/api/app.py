@@ -7,6 +7,7 @@ from realworld.api.views.profile import profile_api
 from realworld.api.views.article import article_api
 from realworld.api.views.comment import comment_api
 from realworld.api.views.favorite import favorite_api
+from realworld.api.views.tag import tag_api
 from realworld.domain import domain
 
 from realworld.api.util import load_data
@@ -17,6 +18,7 @@ app.register_blueprint(profile_api)
 app.register_blueprint(article_api)
 app.register_blueprint(comment_api)
 app.register_blueprint(favorite_api)
+app.register_blueprint(tag_api)
 
 # Configure domain
 current_path = os.path.abspath(os.path.dirname(__file__))

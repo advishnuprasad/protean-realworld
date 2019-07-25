@@ -14,3 +14,7 @@ class TagRepository:
             return tag_dao.find_by(name=tag_name.lower())
         except ObjectNotFoundError:
             return None
+
+    def get_all(self):
+        tag_dao = current_domain.get_dao(Tag)
+        return tag_dao.query.limit(1000).all()

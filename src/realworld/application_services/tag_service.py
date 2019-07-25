@@ -1,6 +1,7 @@
 from protean.globals import current_domain
 
 from realworld.application_services.command.new_tags_command import NewTagsCommand
+from realworld.application_services.representation.tags_representation import TagsRepresentation
 from realworld.domain import domain
 from realworld.infrastructure.db.tag_repository import TagRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.tag import Tag
@@ -21,3 +22,15 @@ class TagService:
                 tag = Tag.create(tag_name, command.added_at)
 
             tag_repo.add(tag)
+
+    @classmethod
+    def get_tags(cls):
+        tag_repo = current_domain.repository_for(Tag)
+        tags = tag_repo.get_all()
+
+        if tags is not None:
+            tags_list = [tag.name for tag in tags]
+            tags_resource = TagsRepresentation().dump(tags_list)
+            return tags_resource
+
+        return None
