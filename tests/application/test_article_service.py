@@ -1,6 +1,8 @@
 import pytest
 import random
 
+from datetime import datetime, timedelta
+
 from realworld.application_services.command.create_article_command import CreateArticleCommand
 from realworld.application_services.command.delete_article_command import DeleteArticleCommand
 from realworld.application_services.command.favorite_article_command import FavoriteArticleCommand
@@ -58,6 +60,7 @@ class TestArticleService:
 
         articles = []
         for counter in range(1, 31):
+            tstamp = datetime.now() - timedelta(minutes=30-counter)
             articles.append(
                 article_dao.create(
                     title="Article A{}".format(counter),
@@ -65,7 +68,9 @@ class TestArticleService:
                     description="Article Description for A{}".format(counter),
                     body="Article Body for A{}".format(counter),
                     tag_list=random.sample(tags_list, random.randint(1, 3)),
-                    author=random.choice([user1, user2])
+                    author=random.choice([user1, user2]),
+                    created_at=tstamp,
+                    updated_at=tstamp
                 )
             )
 
@@ -147,6 +152,36 @@ class TestArticleService:
         list_command = ListArticlesCommand(token=authenticated_user['token'])
         article_resources = ArticleService.list_articles(list_command)
         assert len(article_resources) == 20
+
+    def test_listing_articles_without_query_filters_for_reverse_sorted_list(self, persisted_user, persisted_articles):
+        # Authenticate user to generate valid token
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'])
+        article_resources = ArticleService.list_articles(list_command)
+        assert len(article_resources) == 20
+        assert article_resources[0]['slug'] == 'article-a30'
+
+    def test_listing_articles_without_query_filters_with_limit(self, persisted_user, persisted_articles):
+        # Authenticate user to generate valid token
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'], limit=10)
+        article_resources = ArticleService.list_articles(list_command)
+        assert len(article_resources) == 10
+        assert article_resources[0]['slug'] == 'article-a30'
+
+    def test_listing_articles_without_query_filters_with_offset(self, persisted_user, persisted_articles):
+        # Authenticate user to generate valid token
+        command = UserAuthenticationCommand(email='jake@jake.jake', password='nopass')
+        authenticated_user = UserAuthenticationService.authenticate_user(command)
+
+        list_command = ListArticlesCommand(token=authenticated_user['token'], offset=5)
+        article_resources = ArticleService.list_articles(list_command)
+        assert len(article_resources) == 20
+        assert article_resources[0]['slug'] == 'article-a25'
 
     def test_listing_articles_with_tag_filter(self, persisted_user, persisted_articles):
         # Authenticate user to generate valid token

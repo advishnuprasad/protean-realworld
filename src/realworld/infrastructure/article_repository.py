@@ -17,14 +17,18 @@ class ArticleRepository:
 
     def get_by_tag(self, tag: str, limit: int, offset: int):
         article_dao = current_domain.get_dao(Article)
-        return article_dao.query.filter(tag_list__contains=tag).limit(limit).offset(offset).all()
+        return (article_dao.query.filter(tag_list__contains=tag)
+                .limit(limit).offset(offset)
+                .order_by('-updated_at').all())
 
     def get_by_author(self, author: str, limit: int, offset: int):
         user_repo = current_domain.repository_for(User)
         article_dao = current_domain.get_dao(Article)
         user = user_repo.get_by_username(author)
         if user is not None:
-            return article_dao.query.filter(author_id=user.id).limit(limit).offset(offset).all()
+            return (article_dao.query.filter(author_id=user.id)
+                    .limit(limit).offset(offset)
+                    .order_by('-updated_at').all())
 
         return None
 
@@ -38,4 +42,4 @@ class ArticleRepository:
 
     def list_articles(self, limit: int, offset: int):
         article_dao = current_domain.get_dao(Article)
-        return article_dao.query.limit(limit).offset(offset).all()
+        return article_dao.query.limit(limit).offset(offset).order_by('-updated_at').all()
