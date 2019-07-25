@@ -27,16 +27,20 @@
       "description": "Article A1 Description",
       "body": "Article A1 Body",
       "tag_list": ["tag1", "tag2", "tag3"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:49:17.878775",
+      "updated_at": "2019-07-25T09:49:17.878775"
     },
     {
       "id": "2ecb5985-9504-4df7-9a2f-d8fae2c4b3b6",
       "title": "Article A2",
-      "slug": "article-A2",
+      "slug": "article-a2",
       "description": "Article A2 Description",
       "body": "Article A2 Body",
       "tag_list": ["tag2", "tag4", "tag1"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:50:17.878792",
+      "updated_at": "2019-07-25T09:50:17.878792"
     },
     {
       "id": "0935a2ff-2d31-48fc-9bb4-f3a84c91e39e",
@@ -45,7 +49,9 @@
       "description": "Article A3 Description",
       "body": "Article A3 Body",
       "tag_list": ["tag11", "tag12", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:51:17.878795",
+      "updated_at": "2019-07-25T09:51:17.878795"
     },
     {
       "id": "f33753c5-5a7d-48ff-aa90-4a85ca75bc33",
@@ -54,7 +60,9 @@
       "description": "Article A4 Description",
       "body": "Article A4 Body",
       "tag_list": ["tag6", "tag4", "tag3"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:52:17.878797",
+      "updated_at": "2019-07-25T09:52:17.878797"
     },
     {
       "id": "ea355581-b986-4f8c-b3b4-825e7a671149",
@@ -63,7 +71,9 @@
       "description": "Article A5 Description",
       "body": "Article A5 Body",
       "tag_list": ["tag8", "tag2", "tag1"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:53:17.878799",
+      "updated_at": "2019-07-25T09:53:17.878799"
     },
     {
       "id": "fe8bebe2-6fa1-4194-a5c6-4b8511a2c9d0",
@@ -72,7 +82,9 @@
       "description": "Article A6 Description",
       "body": "Article A6 Body",
       "tag_list": ["tag10", "tag12", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:54:17.878801",
+      "updated_at": "2019-07-25T09:54:17.878801"
     },
     {
       "id": "ef55e7bc-2f3c-433a-be9b-334ec89de4ee",
@@ -81,7 +93,9 @@
       "description": "Article A7 Description",
       "body": "Article A7 Body",
       "tag_list": ["tag1", "tag2", "tag3"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:55:17.878803",
+      "updated_at": "2019-07-25T09:55:17.878803"
     },
     {
       "id": "dd10a969-70e7-4df4-b713-9f4f477daa4e",
@@ -90,7 +104,9 @@
       "description": "Article A8 Description",
       "body": "Article A8 Body",
       "tag_list": ["tag5", "tag6", "tag9"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:56:17.878805",
+      "updated_at": "2019-07-25T09:56:17.878805"
     },
     {
       "id": "b2b45041-33d2-461d-9697-7beec3fe4f62",
@@ -99,7 +115,9 @@
       "description": "Article A9 Description",
       "body": "Article A9 Body",
       "tag_list": ["tag8", "tag21", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:57:17.878807",
+      "updated_at": "2019-07-25T09:57:17.878807"
     },
     {
       "id": "63dca8e0-1590-419f-b141-0161c6e6aca5",
@@ -108,7 +126,9 @@
       "description": "Article A10 Description",
       "body": "Article A10 Body",
       "tag_list": ["tag7", "tag6", "tag5"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:58:17.878809",
+      "updated_at": "2019-07-25T09:58:17.878809"
     },
     {
       "id": "b11951e2-be45-4cee-adac-1a4120625726",
@@ -117,7 +137,9 @@
       "description": "Article A11 Description",
       "body": "Article A11 Body",
       "tag_list": ["tag4", "tag3", "tag1"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T09:59:17.878811",
+      "updated_at": "2019-07-25T09:59:17.878811"
     },
     {
       "id": "f9cf1585-f22f-442e-a480-2ac32c232d65",
@@ -126,7 +148,9 @@
       "description": "Article A12 Description",
       "body": "Article A12 Body",
       "tag_list": ["tag1", "tag2", "tag3"],
-      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df"
+      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df",
+      "created_at": "2019-07-25T10:00:17.878813",
+      "updated_at": "2019-07-25T10:00:17.878813"
     },
     {
       "id": "4a484228-b146-4bc6-acc7-ca5cd6eb4c8b",
@@ -134,7 +158,9 @@
       "slug": "article-a13",
       "description": "Article A13 Description",
       "body": "Article A13 Body",
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:01:17.878815",
+      "updated_at": "2019-07-25T10:01:17.878815"
     },
     {
       "id": "2594a054-2901-488c-8832-7770cc9b7a0f",
@@ -143,7 +169,9 @@
       "description": "Article A14 Description",
       "body": "Article A14 Body",
       "tag_list": ["tag11"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:02:17.878817",
+      "updated_at": "2019-07-25T10:02:17.878817"
     },
     {
       "id": "b690291c-f331-4627-a5b0-499271ee1774",
@@ -152,7 +180,9 @@
       "description": "Article A15 Description",
       "body": "Article A15 Body",
       "tag_list": ["tag6", "tag14"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:03:17.878819",
+      "updated_at": "2019-07-25T10:03:17.878819"
     },
     {
       "id": "455ee481-9922-453e-9964-be402840a3dd",
@@ -161,7 +191,9 @@
       "description": "Article A16 Description",
       "body": "Article A16 Body",
       "tag_list": ["tag8"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:04:17.878821",
+      "updated_at": "2019-07-25T10:04:17.878821"
     },
     {
       "id": "7300f879-8f60-4a5f-8a99-015c13cf4785",
@@ -170,7 +202,9 @@
       "description": "Article A17 Description",
       "body": "Article A17 Body",
       "tag_list": ["tag7"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:05:17.878823",
+      "updated_at": "2019-07-25T10:05:17.878823"
     },
     {
       "id": "94c3d6bb-c2c3-4322-87d4-1f41b7f08721",
@@ -179,7 +213,9 @@
       "description": "Article A18 Description",
       "body": "Article A18 Body",
       "tag_list": ["tag1", "tag4", "tag2"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:06:17.878825",
+      "updated_at": "2019-07-25T10:06:17.878825"
     },
     {
       "id": "9c0602ee-126b-459c-a7db-9a03c0cf1db8",
@@ -188,7 +224,9 @@
       "description": "Article A19 Description",
       "body": "Article A19 Body",
       "tag_list": ["tag11", "tag8", "tag9"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:07:17.878827",
+      "updated_at": "2019-07-25T10:07:17.878827"
     },
     {
       "id": "674aca56-b257-439d-b997-c54168009102",
@@ -197,7 +235,9 @@
       "description": "Article A20 Description",
       "body": "Article A20 Body",
       "tag_list": ["tag1", "tag2", "tag3"],
-      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df"
+      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df",
+      "created_at": "2019-07-25T10:08:17.878829",
+      "updated_at": "2019-07-25T10:08:17.878829"
     },
     {
       "id": "a60a2325-cb27-44aa-8f12-567e9b7f630d",
@@ -206,7 +246,9 @@
       "description": "Article A21 Description",
       "body": "Article A21 Body",
       "tag_list": ["tag6", "tag1", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:09:17.878831",
+      "updated_at": "2019-07-25T10:09:17.878831"
     },
     {
       "id": "9cba1920-056c-45a8-94ab-3ecce931c843",
@@ -215,7 +257,9 @@
       "description": "Article A22 Description",
       "body": "Article A22 Body",
       "tag_list": ["tag15", "tag21", "tag4"],
-      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df"
+      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df",
+      "created_at": "2019-07-25T10:10:17.878833",
+      "updated_at": "2019-07-25T10:10:17.878833"
     },
     {
       "id": "fb9df55c-009c-4c8e-bfa3-2733dd04cda4",
@@ -224,7 +268,9 @@
       "description": "Article A23 Description",
       "body": "Article A23 Body",
       "tag_list": ["tag1", "tag3", "tag6"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:11:17.878834",
+      "updated_at": "2019-07-25T10:11:17.878834"
     },
     {
       "id": "d15849a1-ef0f-4969-88ed-f218ffbc24fe",
@@ -233,7 +279,9 @@
       "description": "Article A24 Description",
       "body": "Article A24 Body",
       "tag_list": ["tag5", "tag8", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:12:17.878836",
+      "updated_at": "2019-07-25T10:12:17.878836"
     },
     {
       "id": "2bea24cb-afa3-4de8-90fe-7fbd0e76cdcf",
@@ -242,7 +290,9 @@
       "description": "Article A25 Description",
       "body": "Article A25 Body",
       "tag_list": ["tag1", "tag2", "tag5"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:13:17.878838",
+      "updated_at": "2019-07-25T10:13:17.878838"
     },
     {
       "id": "749fca04-aa19-4cd7-9bb4-a4b144d6f8c5",
@@ -251,7 +301,9 @@
       "description": "Article A26 Description",
       "body": "Article A26 Body",
       "tag_list": ["tag2", "tag3", "tag5"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:14:17.878840",
+      "updated_at": "2019-07-25T10:14:17.878840"
     },
     {
       "id": "317181a9-e65c-4158-8c2b-667a0af78c13",
@@ -260,7 +312,9 @@
       "description": "Article A27 Description",
       "body": "Article A27 Body",
       "tag_list": ["tag3", "tag5", "tag8"],
-      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df"
+      "author_id": "85061273-76b3-4c36-879c-93e4faf9d8df",
+      "created_at": "2019-07-25T10:15:17.878842",
+      "updated_at": "2019-07-25T10:15:17.878842"
     },
     {
       "id": "53004bd7-8f80-4d52-b856-69da0a2e1a37",
@@ -269,7 +323,9 @@
       "description": "Article A28 Description",
       "body": "Article A28 Body",
       "tag_list": ["tag21", "tag13"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:16:17.878844",
+      "updated_at": "2019-07-25T10:16:17.878844"
     },
     {
       "id": "2a69ec7b-dc2e-44f8-bd32-9dbb3c0a27f0",
@@ -278,7 +334,9 @@
       "description": "Article A29 Description",
       "body": "Article A29 Body",
       "tag_list": ["tag1", "tag12", "tag23"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:17:17.878846",
+      "updated_at": "2019-07-25T10:17:17.878846"
     },
     {
       "id": "ac41fb8c-ecd1-467e-8a07-c355a99cd76e",
@@ -287,7 +345,9 @@
       "description": "Article A30 Description",
       "body": "Article A30 Body",
       "tag_list": ["tag11", "tag9", "tag7"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:18:17.878848",
+      "updated_at": "2019-07-25T10:18:17.878848"
     },
     {
       "id": "1492b1b1-34f6-4da7-b210-115315ea41ae",
@@ -296,7 +356,9 @@
       "description": "Article A31 Description",
       "body": "Article A31 Body",
       "tag_list": ["tag1"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:19:18.878850",
+      "updated_at": "2019-07-25T10:19:18.878850"
     },
     {
       "id": "ef4a1968-1ae9-4a27-a34d-242a30fb6516",
@@ -305,7 +367,9 @@
       "description": "Article A32 Description",
       "body": "Article A32 Body",
       "tag_list": ["tag14"],
-      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c"
+      "author_id": "113d7922-b1b5-4f69-8270-4c3e990cd75c",
+      "created_at": "2019-07-25T10:20:19.878852",
+      "updated_at": "2019-07-25T10:20:19.878852"
     }
   ]
 }

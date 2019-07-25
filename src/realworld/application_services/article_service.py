@@ -6,7 +6,7 @@ from realworld.application_services.command.get_article_command import GetArticl
 from realworld.application_services.command.list_articles_command import ListArticlesCommand
 from realworld.application_services.command.update_article_command import UpdateArticleCommand
 from realworld.application_services.representation.article_representation import ArticleRepresentation
-from realworld.infrastructure.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
+from realworld.infrastructure.db.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.article import Article, CreateArticleDTO
 from realworld.model.user import User
 from realworld.domain import domain

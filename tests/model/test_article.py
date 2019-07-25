@@ -6,6 +6,7 @@ from protean.core.exceptions import ValidationError
 
 from realworld.model.article import Article, CreateArticleDTO
 from realworld.model.user import User
+# from realworld.infrastructure.message.upsert_tags import UpsertTags  # noqa: F401  # FIXME No need to import
 
 
 class TestArticle:
@@ -43,6 +44,10 @@ class TestArticle:
             UUID(str(article.id))
         except ValueError:
             pytest.fail("ID is not valid UUID")
+
+    @pytest.mark.skip(reason="Yet to implement")
+    def test_that_a_tags_added_event_is_raised_after_article_is_created(self):
+        pass
 
     def test_that_a_slug_is_created_from_the_article_title(self):
         user = User(email='jake@jake.jake', username='jake', password='nopass')

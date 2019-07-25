@@ -5,7 +5,7 @@ from realworld.application_services.command.get_comment_command import GetCommen
 from realworld.application_services.command.delete_comment_command import DeleteCommentCommand
 from realworld.application_services.representation.comment_representation import CommentRepresentation
 from realworld.domain import domain
-from realworld.infrastructure.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
+from realworld.infrastructure.db.article_repository import ArticleRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.article import Article
 from realworld.model.user import User
 

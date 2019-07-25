@@ -4,7 +4,7 @@ from realworld.application_services.command.current_user_command import CurrentU
 from realworld.application_services.command.user_fetch_command import UserFetchCommand
 from realworld.application_services.command.user_update_command import UserUpdateCommand
 from realworld.application_services.representation.user_representation import UserRepresentation
-from realworld.infrastructure.user_repository import UserRepository  # noqa: F401  # FIXME No need to import
+from realworld.infrastructure.db.user_repository import UserRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.user import User
 from realworld.domain import domain
 

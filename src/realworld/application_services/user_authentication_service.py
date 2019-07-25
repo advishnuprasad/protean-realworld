@@ -2,7 +2,7 @@ from protean.globals import current_domain
 
 from realworld.application_services.command.user_authentication_command import UserAuthenticationCommand
 from realworld.application_services.representation.user_representation import UserRepresentation
-from realworld.infrastructure.user_repository import UserRepository  # noqa: F401  # FIXME No need to import
+from realworld.infrastructure.db.user_repository import UserRepository  # noqa: F401  # FIXME No need to import
 from realworld.model.user import User
 from realworld.domain import domain
 
