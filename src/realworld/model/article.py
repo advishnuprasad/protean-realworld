@@ -2,6 +2,7 @@ from datetime import datetime
 
 from protean.core.field.basic import Boolean, CustomObject, DateTime, Integer, List, String, Text
 from protean.core.field.association import HasMany, Reference
+from protean.globals import current_domain
 
 from realworld.domain import domain
 from realworld.lib.utils import slugify
@@ -16,6 +17,12 @@ class CreateArticleDTO:
     tag_list = List()
 
     author = CustomObject(User, required=True)
+
+
+@domain.domain_event
+class TagsAdded:
+    tag_list = List()
+    added_at = DateTime(default=datetime.now())
 
 
 @domain.aggregate
@@ -34,7 +41,7 @@ class Article:
 
     @classmethod
     def create(self, article_dto: CreateArticleDTO):
-        return Article(
+        article = Article(
             title=article_dto.title,
             slug=slugify(article_dto.title),
             description=article_dto.description,
@@ -42,6 +49,10 @@ class Article:
             tag_list=article_dto.tag_list,
             author=article_dto.author
             )
+
+        current_domain.publish(TagsAdded(tag_list=article_dto.tag_list))
+
+        return article
 
     def update(self, **kwargs):
         valid_fields = [
