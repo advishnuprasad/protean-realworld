@@ -6,7 +6,7 @@ from protean.core.exceptions import ValidationError
 
 from realworld.model.article import Article, CreateArticleDTO
 from realworld.model.user import User
-# from realworld.infrastructure.message.upsert_tags import UpsertTags  # noqa: F401  # FIXME No need to import
+from realworld.infrastructure.message.upsert_tags import UpsertTags  # noqa: F401  # FIXME No need to import
 
 
 class TestArticle:
