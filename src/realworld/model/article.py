@@ -5,7 +5,7 @@ from protean.core.field.association import HasMany, Reference
 from protean.globals import current_domain
 
 from realworld.domain import domain
-from realworld.lib.utils import slugify
+from slugify import slugify
 from realworld.model.user import User
 
 
@@ -117,7 +117,6 @@ class ArticleDTO:
             tag_list=article.tag_list,
             created_at=article.created_at,
             updated_at=article.updated_at,
-            author=article.author,
             favorited=favorited
         )
 

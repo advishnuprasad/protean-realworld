@@ -1,4 +1,4 @@
 -e ../protean
 pyjwt==1.7.1
-
+python-slugify
 -r requirements/dev.txt

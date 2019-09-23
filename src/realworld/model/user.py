@@ -4,7 +4,7 @@ from protean.core.field.association import HasMany, Reference
 from protean.core.field.basic import Boolean, DateTime, String
 
 from realworld.domain import domain
-from realworld.lib.jwt import generate_token
+from realworld.lib.utils import generate_token
 
 
 @domain.data_transfer_object
